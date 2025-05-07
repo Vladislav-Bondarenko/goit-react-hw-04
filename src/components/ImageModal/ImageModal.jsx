@@ -1,6 +1,7 @@
 import Modal from "react-modal";
+import styles from "./ImageModal.module.css";
 
-Modal.setAppElement("#root"); // обязательная строка!
+Modal.setAppElement("#root");
 
 export default function ImageModal({ isOpen, onClose, image }) {
   if (!image) return null;
@@ -11,20 +12,20 @@ export default function ImageModal({ isOpen, onClose, image }) {
       onRequestClose={onClose}
       contentLabel="Image Modal"
       shouldCloseOnOverlayClick={true}
-      style={{
-        overlay: { backgroundColor: "rgba(0, 0, 0, 0.75)" },
-        content: { maxWidth: "800px", margin: "auto" },
-      }}
+      className={styles.modal}
+      overlayClassName={styles.overlay}
     >
       <img
         src={image.urls.regular}
         alt={image.alt_description}
-        style={{ width: "100%" }}
+        className={styles.image}
       />
       <p>Author: {image.user.name}</p>
       <p>Likes: {image.likes}</p>
       <p>Description: {image.alt_description || "No description"}</p>
-      <button onClick={onClose}>Close</button>
+      <button className={styles.button} onClick={onClose}>
+        Close
+      </button>
     </Modal>
   );
 }
